@@ -83,6 +83,45 @@
     logoVideo.load();
     logoVideo.play();
 
+    // === ELASTIC OVERSCROLL ===
+    let currentY = 0;
+    let targetY = 0;
+    let velocity = 0;
+    const stiffness = 0.12;
+    const damping = 0.75;
+    const maxBounce = 80;
+
+    window.addEventListener('wheel', e => {
+      targetY += e.deltaY * 0.4;
+      targetY = Math.max(-maxBounce, Math.min(maxBounce, targetY));
+    }, { passive: true });
+
+    window.addEventListener('touchstart', e => {
+      lastTouchY = e.touches[0].clientY;
+    }, { passive: true });
+
+    let lastTouchY = 0;
+    window.addEventListener('touchmove', e => {
+      const delta = lastTouchY - e.touches[0].clientY;
+      lastTouchY = e.touches[0].clientY;
+      targetY += delta * 0.4;
+      targetY = Math.max(-maxBounce, Math.min(maxBounce, targetY));
+    }, { passive: true });
+
+    function animateBounce() {
+      // Spring back to 0
+      const force = -currentY * stiffness;
+      velocity += force;
+      velocity *= damping;
+      currentY += velocity;
+      targetY *= 0.85;
+      currentY += (targetY - currentY) * 0.1;
+
+      document.querySelector('.logo-wrap').style.transform = `translateY(${-currentY}px)`;
+      requestAnimationFrame(animateBounce);
+    }
+    animateBounce();
+
     // Block right-click on the whole page
     document.addEventListener('contextmenu', e => e.preventDefault());
 
