@@ -69,13 +69,19 @@
   </div>
 
   <div class="logo-wrap">
-    <video autoplay muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback">
-      <source src="images/AndrewRobb_Logo.webm" type="video/webm; codecs=vp9">
-      <source src="images/AndrewRobb_Logo.mp4" type="video/mp4; codecs=hvc1">
-    </video>
+    <video id="logo-video" autoplay muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
   </div>
 
   <script>
+    // Detect Safari (but not Chrome, which also has Safari in its UA)
+    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+    const logoVideo = document.getElementById('logo-video');
+    logoVideo.src = isSafari
+      ? 'images/AndrewRobb_Logo.mp4'
+      : 'images/AndrewRobb_Logo.webm';
+    logoVideo.load();
+    logoVideo.play();
+
     // Block right-click on the whole page
     document.addEventListener('contextmenu', e => e.preventDefault());
 
