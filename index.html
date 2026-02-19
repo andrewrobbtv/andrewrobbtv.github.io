@@ -53,6 +53,12 @@
       width: 100vw;
       height: auto;
     }
+
+    .logo-wrap video {
+      width: 100vw;
+      height: auto;
+      pointer-events: none;
+    }
   </style>
 </head>
 <body>
@@ -63,7 +69,9 @@
   </div>
 
   <div class="logo-wrap">
-    <img src="images/AndrewRobb_Logo.png" alt="Andrew Robb">
+    <video autoplay muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback">
+      <source src="images/AndrewRobb_Logo.webm" type="video/webm">
+    </video>
   </div>
 
   <script>
