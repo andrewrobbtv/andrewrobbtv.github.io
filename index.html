@@ -9,6 +9,10 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    html {
+      background: #161616;
+    }
+
     html, body {
       width: 100%;
       height: 100%;
@@ -52,6 +56,19 @@
       overflow: hidden;
       opacity: 0;
       transition: opacity 1.5s ease;
+      will-change: opacity;
+    }
+
+    .video-wrap video {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      min-width: 100%;
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      pointer-events: none;
     }
 
     .video-wrap::after {
@@ -61,9 +78,6 @@
     }
 
     video {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
       pointer-events: none;
     }
 
