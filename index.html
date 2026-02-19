@@ -17,33 +17,7 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #e8e8e8;
     }
-
-    .bottom-links {
-      position: fixed;
-      bottom: 48px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 2;
-      display: flex;
-      gap: 32px;
-      white-space: nowrap;
-      opacity: 0;
-      transition: opacity 1.5s ease;
-    }
-
-    .bottom-links a {
-      color: #e8e8e8;
-      text-decoration: none;
-      transition: opacity 0.2s;
-    }
-
-    .bottom-links a:hover { opacity: 0.5; }
 
     .video-wrap {
       position: fixed;
@@ -70,17 +44,13 @@
 
     .logo-wrap {
       position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
+      inset: 0;
       z-index: 1;
       display: flex;
       align-items: center;
       justify-content: center;
       pointer-events: none;
       opacity: 0;
-      transition: bottom 1.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     @keyframes fadeIn {
@@ -111,26 +81,7 @@
     <video id="logo-video" autoplay muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
   </div>
 
-  <div class="bottom-links">
-    <a href="https://www.linkedin.com/in/andrewrobbtv" target="_blank">LinkedIn</a>
-    <a href="https://dribbble.com/andrewrobb" target="_blank">Dribbble</a>
-    <a href="https://www.instagram.com/andrewrobb" target="_blank">Instagram</a>
-    <a href="mailto:hello@andrewrobb.tv">E-mail</a>
-  </div>
-
   <script>
-    // Dynamically center logo above bottom links
-    function getLinksOffset() {
-      const links = document.querySelector('.bottom-links');
-      return links.offsetHeight + 48;
-    }
-    window.addEventListener('resize', () => {
-      const logoWrap = document.querySelector('.logo-wrap');
-      if (logoWrap.style.bottom !== '0px') {
-        logoWrap.style.bottom = getLinksOffset() + 'px';
-      }
-    });
-
     // Detect Safari (but not Chrome, which also has Safari in its UA)
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const logoVideo = document.getElementById('logo-video');
@@ -160,14 +111,9 @@
           const revealDelay = isSafari ? 100 : 0;
           setTimeout(() => {
             document.querySelector('.logo-wrap').style.opacity = '1';
-            // Fade in links and slide logo up simultaneously
-            setTimeout(() => {
-              document.querySelector('.bottom-links').style.opacity = '1';
-              document.querySelector('.logo-wrap').style.bottom = getLinksOffset() + 'px';
-            }, 1500);
           }, revealDelay);
         });
-      }, 1000);
+      }, 2000);
     });
 
     // === ELASTIC OVERSCROLL ===
