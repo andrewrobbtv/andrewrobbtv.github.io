@@ -35,6 +35,7 @@
       white-space: nowrap;
       opacity: 0;
       transition: opacity 1.5s ease;
+      padding-top: 16px;
     }
 
     .bottom-links a {
@@ -125,10 +126,10 @@
     <a href="https://www.linkedin.com/in/andrewrobbtv" target="_blank">LinkedIn</a>
     <a href="https://dribbble.com/andrewrobb" target="_blank">Dribbble</a>
     <a href="https://www.instagram.com/andrewrobb" target="_blank">Instagram</a>
-    <a href="mailto:hello@andrewrobb.tv">E-mail</a>
+    <a href="/cdn-cgi/l/email-protection#a5cdc0c9c9cae5c4cbc1d7c0d2d7cac7c78bd1d3">E-mail</a>
   </div>
 
-  <script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     // Dynamically center logo above bottom links
     function getLinksOffset() {
       const links = document.querySelector('.bottom-links');
@@ -268,9 +269,4 @@
     document.addEventListener('contextmenu', e => e.preventDefault());
 
     // Block common save shortcuts (Ctrl/Cmd + S)
-    document.addEventListener('keydown', e => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 's') e.preventDefault();
-    });
-  </script>
-</body>
-</html>
+    doc
