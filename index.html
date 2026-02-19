@@ -80,7 +80,15 @@
       justify-content: center;
       pointer-events: none;
       opacity: 0;
-      transition: bottom 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+      transition: bottom 1.5s cubic-bezier(0.16, 1, 0.3, 1),
+                  opacity 0.5s ease;
+    }
+
+    .logo-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
     }
 
     @keyframes fadeIn {
@@ -108,7 +116,9 @@
   </div>
 
   <div class="logo-wrap">
-    <video id="logo-video" autoplay muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
+    <div class="logo-inner">
+      <video id="logo-video" autoplay muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
+    </div>
   </div>
 
   <div class="bottom-links">
@@ -247,7 +257,7 @@
       const scaleX = velocity > 0 ? squash : stretch;
       const scaleY = velocity > 0 ? stretch : squash;
 
-      document.querySelector('.logo-wrap').style.transform =
+      document.querySelector('.logo-inner').style.transform =
         `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
 
       requestAnimationFrame(animateBounce);
