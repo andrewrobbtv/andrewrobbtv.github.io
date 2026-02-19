@@ -87,9 +87,9 @@
     let currentY = 0;
     let targetY = 0;
     let velocity = 0;
-    const stiffness = 0.12;
-    const damping = 0.75;
-    const maxBounce = 80;
+    const stiffness = 0.06;
+    const damping = 0.65;
+    const maxBounce = 140;
 
     window.addEventListener('wheel', e => {
       targetY += e.deltaY * 0.4;
