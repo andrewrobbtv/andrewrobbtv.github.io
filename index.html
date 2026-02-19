@@ -51,7 +51,6 @@
       justify-content: center;
       pointer-events: none;
       opacity: 0;
-      animation: fadeIn 1.5s ease 2s forwards;
     }
 
     @keyframes fadeIn {
@@ -90,7 +89,12 @@
       ? 'images/AndrewRobb_Logo.mp4'
       : 'images/AndrewRobb_Logo.webm';
     logoVideo.load();
-    logoVideo.play();
+
+    // Delay play to sync with the fade-in at 2s
+    setTimeout(() => {
+      logoVideo.play();
+      document.querySelector('.logo-wrap').style.animation = 'fadeIn 1.5s ease forwards';
+    }, 2000);
 
     // === ELASTIC OVERSCROLL ===
     let currentY = 0;
