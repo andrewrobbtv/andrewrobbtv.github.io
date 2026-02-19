@@ -33,6 +33,8 @@
       display: flex;
       gap: 32px;
       white-space: nowrap;
+      opacity: 0;
+      transition: opacity 1.5s ease;
     }
 
     .bottom-links a {
@@ -155,6 +157,10 @@
           const revealDelay = isSafari ? 100 : 0;
           setTimeout(() => {
             document.querySelector('.logo-wrap').style.opacity = '1';
+            // Fade in links after logo
+            setTimeout(() => {
+              document.querySelector('.bottom-links').style.opacity = '1';
+            }, 1500);
           }, revealDelay);
         });
       }, 1000);
