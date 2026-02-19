@@ -25,7 +25,7 @@
       z-index: 0;
       overflow: hidden;
       opacity: 0;
-      animation: fadeIn 1.5s ease 0.5s forwards;
+      transition: opacity 1.5s ease;
     }
 
     /* Transparent overlay blocks right-click and drag on the video */
@@ -85,22 +85,36 @@
     // Detect Safari (but not Chrome, which also has Safari in its UA)
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const logoVideo = document.getElementById('logo-video');
+    const bgVideo = document.querySelector('.video-wrap video');
+
     logoVideo.src = isSafari
       ? 'images/AndrewRobb_Logo.mp4'
       : 'images/AndrewRobb_Logo.webm';
     logoVideo.load();
 
-    // Delay play until after background video fades in
-    setTimeout(() => {
-      logoVideo.currentTime = 0;
-      logoVideo.play().then(() => {
-        // Safari needs an extra frame before revealing to avoid last-frame flash
-        const revealDelay = isSafari ? 100 : 0;
-        setTimeout(() => {
-          document.querySelector('.logo-wrap').style.opacity = '1';
-        }, revealDelay);
+    // Wait for both videos to be ready before starting the sequence
+    function videoReady(video) {
+      return new Promise(resolve => {
+        if (video.readyState >= 3) return resolve();
+        video.addEventListener('canplaythrough', resolve, { once: true });
       });
-    }, 2000);
+    }
+
+    Promise.all([videoReady(bgVideo), videoReady(logoVideo)]).then(() => {
+      // Fade in background video
+      document.querySelector('.video-wrap').style.opacity = '1';
+
+      // After bg fade completes, play and show logo
+      setTimeout(() => {
+        logoVideo.currentTime = 0;
+        logoVideo.play().then(() => {
+          const revealDelay = isSafari ? 100 : 0;
+          setTimeout(() => {
+            document.querySelector('.logo-wrap').style.opacity = '1';
+          }, revealDelay);
+        });
+      }, 2000);
+    });
 
     // === ELASTIC OVERSCROLL ===
     let currentY = 0;
