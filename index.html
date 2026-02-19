@@ -52,7 +52,8 @@
       z-index: 0;
       overflow: hidden;
       opacity: 0;
-      transition: opacity 1.5s ease;
+      visibility: hidden;
+      transition: opacity 1.5s ease, visibility 0s 0s;
       will-change: opacity;
     }
 
@@ -168,7 +169,9 @@
     }
 
     Promise.all([videoReady(bgVideo), videoReady(logoVideo)]).then(() => {
-      document.querySelector('.video-wrap').style.opacity = '1';
+      const videoWrap = document.querySelector('.video-wrap');
+      videoWrap.style.visibility = 'visible';
+      videoWrap.style.opacity = '1';
 
       setTimeout(() => {
         logoVideo.currentTime = 0;
