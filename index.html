@@ -26,7 +26,7 @@
 
     .bottom-links {
       position: fixed;
-      bottom: 5vh;
+      bottom: 48px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 2;
@@ -41,7 +41,6 @@
       color: #e8e8e8;
       text-decoration: none;
       transition: opacity 0.2s;
-      font-size: 1.5vw;
     }
 
     .bottom-links a:hover { opacity: 0.5; }
@@ -126,9 +125,7 @@
     // Dynamically center logo above bottom links
     function getLinksOffset() {
       const links = document.querySelector('.bottom-links');
-      const bottomVh = window.innerHeight * 0.05;  // 5vh
-      const gapVh = window.innerHeight * 0.03;     // 3vh gap above links
-      return links.offsetHeight + bottomVh + gapVh;
+      return links.offsetHeight + 48 + 32;
     }
     window.addEventListener('resize', () => {
       const logoWrap = document.querySelector('.logo-wrap');
