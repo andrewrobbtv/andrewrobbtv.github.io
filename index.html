@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ANDREWROBB.TV | Creative Leader and Director in Digital Experiences</title>
+<style>
+
+  /* ── RESET ── */
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+  /* ── BASE ── */
+  body {
+    background: #1a1a1a;
+    color: #e8e8e8;
+    font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+  }
+
+  a { color: inherit; text-decoration: none; }
+  a:hover { text-decoration: underline; }
+  img { max-width: 100%; display: block; }
+
+  /* ── LAYOUT WRAPPER ── */
+  .site-wrap {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
+
+  /* ── HEADER / LOGO ── */
+  .site-header {
+    padding: 48px 0 40px;
+    border-bottom: 1px solid #444;
+  }
+  .site-logo {
+    height: 36px;
+    width: auto;
+    filter: brightness(0) invert(1);
+  }
+
+  /* ── HERO ── */
+  .hero {
+    padding: 60px 0 52px;
+    border-bottom: 1px solid #444;
+  }
+  .hero h1 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    line-height: 1.5;
+    margin-bottom: 20px;
+  }
+  .hero h1 span.dash { margin: 0 6px; }
+  .hero p {
+    font-size: 14px;
+    color: #aaa;
+    max-width: 560px;
+    line-height: 1.75;
+  }
+
+  /* ── SECTION TITLE ── */
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #e8e8e8;
+    padding: 40px 0 8px;
+  }
+  .section-subtitle {
+    font-size: 11px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #888;
+    padding-bottom: 32px;
+  }
+
+  /* ── DIVIDER ── */
+  hr {
+    border: none;
+    border-top: 1px solid #444;
+    margin: 0;
+  }
+
+  /* ── ROLES SECTION ── */
+  .roles-section {
+    padding: 0 0 0;
+    border-bottom: 1px solid #444;
+  }
+  .roles-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 40px 0 36px;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .roles-header .section-title { padding: 0; }
+  .full-resume-link {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    border-bottom: 1px solid #555;
+    padding-bottom: 1px;
+    white-space: nowrap;
+  }
+  .full-resume-link:hover { color: #e8e8e8; border-color: #e8e8e8; text-decoration: none; }
+
+  .role-item {
+    border-top: 1px solid #333;
+    padding: 32px 0;
+    display: grid;
+    grid-template-columns: 120px 1fr;
+    gap: 32px;
+    align-items: start;
+  }
+  .role-logo-wrap img {
+    height: 22px;
+    width: auto;
+    filter: brightness(0) invert(1);
+    opacity: 0.75;
+    margin-top: 3px;
+  }
+  .role-body strong {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+  .role-body p {
+    font-size: 13px;
+    color: #aaa;
+    margin-top: 8px;
+    line-height: 1.75;
+  }
+  .role-body .role-clients {
+    margin-top: 10px;
+    font-size: 12px;
+    color: #777;
+  }
+  .role-body .role-clients strong { font-size: 12px; color: #999; font-weight: 700; }
+
+  /* ── SELECTED WORKS INDEX ── */
+  .works-index {
+    padding: 40px 0 36px;
+    border-bottom: 1px solid #444;
+  }
+  .works-index .section-title { margin-bottom: 20px; padding: 0; }
+
+
+  /* ── PROJECT SECTION ── */
+  .project {
+    padding: 56px 0;
+    border-bottom: 1px solid #444;
+  }
+  .project-image {
+    width: 100%;
+    margin-bottom: 40px;
+    background: #111;
+  }
+  .project-image img { width: 100%; }
+
+  .project-header {
+    margin-bottom: 32px;
+  }
+  .project-title {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  .project-meta-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 12px;
+  }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: 1fr 24px 1fr;
+    gap: 0;
+    align-items: start;
+  }
+  .project-overview { }
+  .project-divider-img {
+    width: 1px;
+    min-height: 200px;
+    background: #444;
+    margin: 0 auto;
+  }
+  .project-highlights { }
+
+  .meta-line {
+    font-size: 12px;
+    color: #aaa;
+    margin-bottom: 6px;
+    line-height: 1.6;
+  }
+  .meta-line strong { color: #e8e8e8; font-weight: 700; }
+
+  .project-desc {
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.8;
+    margin-top: 16px;
+  }
+
+  .view-project-link {
+    display: inline-block;
+    margin-top: 20px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #888;
+    border-bottom: 1px solid #555;
+    padding-bottom: 1px;
+    transition: color 0.15s, border-color 0.15s;
+  }
+  .view-project-link:hover { color: #e8e8e8; border-color: #e8e8e8; text-decoration: none; }
+
+  .highlights-list {
+    list-style: none;
+    margin-top: 8px;
+  }
+  .highlights-list li {
+    font-size: 12px;
+    color: #aaa;
+    line-height: 1.75;
+    padding: 8px 0;
+    border-top: 1px solid #333;
+    padding-left: 14px;
+    position: relative;
+  }
+  .highlights-list li::before {
+    content: '—';
+    position: absolute;
+    left: 0;
+    color: #555;
+    font-size: 10px;
+  }
+  .highlights-list li strong { color: #ccc; font-weight: 700; }
+
+
+
+  /* ── AWARDS ── */
+  .awards-section {
+    padding: 40px 0 48px;
+    border-bottom: 1px solid #444;
+  }
+  .awards-section .section-title { margin-bottom: 24px; padding-top: 0; }
+  .award-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 10px 0;
+    border-top: 1px solid #333;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .award-name {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    color: #ddd;
+  }
+  .award-org {
+    font-size: 11px;
+    color: #666;
+    letter-spacing: 0.08em;
+    text-align: right;
+  }
+
+  /* ── FOOTER ── */
+  .site-footer {
+    padding: 36px 0 48px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .footer-copy {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #555;
+  }
+  .footer-email {
+    font-size: 10px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: #777;
+    border-bottom: 1px solid #444;
+    padding-bottom: 1px;
+  }
+  .footer-email:hover { color: #ccc; border-color: #aaa; text-decoration: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 640px) {
+    .site-wrap { padding: 0 20px; }
+    .role-item { grid-template-columns: 1fr; gap: 12px; }
+    .project-grid { grid-template-columns: 1fr; }
+    .project-divider-img { display: none; }
+    .hero h1 { font-size: 11px; }
+  }
+
+</style>
+</head>
+<body>
+
+<div class="site-wrap">
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <img
+      class="site-logo"
+      src="https://images.squarespace-cdn.com/content/v1/67bf939ce684860770ed75fc/fc4aa5db-7728-4dfa-8ebd-7074deda53b6/AndrewRobb_Logo.png"
+      alt="Andrew Robb"
+    >
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <h1><strong>ANDREW ROBB</strong> <span class="dash">—</span> CREATIVE LEADER</h1>
+    <p>Award-winning director and designer offering a unique blend of creativity and technical know-how from an extensive background in product design and advertising.</p>
+  </section>
+
+  <!-- LATEST ROLES -->
+  <section class="roles-section" id="roles">
+    <div class="roles-header">
+      <div class="section-title">LATEST ROLES</div>
+      <a href="https://www.linkedin.com/in/andrewrobbtv/" target="_blank" class="full-resume-link">FULL RESUME</a>
+    </div>
+
+    <!-- Warner Bros. Discovery -->
+    <div class="role-item">
+      <div class="role-logo-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/67bf939ce684860770ed75fc/cdfc62ea-0878-4d68-854a-c8fcdb416723/WarnerBros.png" alt="Warner Bros. Discovery">
+      </div>
+      <div class="role-body">
+        <strong>Warner Bros. Discovery — Product Design Manager</strong>
+        <p>Led a team of Product Designers, ensuring deadlines and milestones were met while driving collaboration across platforms and departments. Implemented and refined design systems, researched and resolved platform constraints, and elevated quality standards.</p>
+        <p class="role-clients"><strong>Sample projects:</strong> HBO Max (Warner Media), Max, and discovery+ (Warner Bros. Discovery)</p>
+      </div>
+    </div>
+
+    <!-- You.i TV -->
+    <div class="role-item">
+      <div class="role-logo-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/67bf939ce684860770ed75fc/bec9a59f-083f-4e9b-933e-106e95370864/Youi.png" alt="You.i TV">
+      </div>
+      <div class="role-body">
+        <strong>You.i TV — Creative Lead</strong>
+        <p>Directed a multidisciplinary design team, collaborating with clients and stakeholders to deliver engaging mobile and TV streaming experiences. Oversaw resourcing, project scoping, and fostered growth and innovation within the organization.</p>
+        <p class="role-clients"><strong>Sample clients:</strong> AT&amp;T, Fox, NBA, Sony, Twitch, The Weather Channel, and more</p>
+      </div>
+    </div>
+
+    <!-- McMillan -->
+    <div class="role-item">
+      <div class="role-logo-wrap">
+        <img src="https://images.squarespace-cdn.com/content/v1/67bf939ce684860770ed75fc/93c68b27-ae38-48eb-8500-2e15bf2e2bc2/McMillan.png" alt="McMillan">
+      </div>
+      <div class="role-body">
+        <strong>McMillan — Senior Designer</strong>
+        <p>Developed impactful print, interactive, and video materials for advertising campaigns across local, national, and international markets. Translated client briefs into creative concepts, refined work through critiques, and presented ideas in pitches and client meetings.</p>
+        <p class="role-clients"><strong>Sample clients:</strong> Canada Post, D&amp;B, Intuit, Siemens, Westfest, and more</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- SELECTED WORKS INDEX -->
+  <section class="works-index" id="selectedworks">
+    <div class="section-title">SELECTED WORKS: CRAFTED FOR IMPACT</div>
+  </section>
+
+  <!-- WBD MAX -->
+  <section class="project" id="wbdmax">
+    <div class="project-image">
+      <img src="https://images.squarespace-cdn.com/content/v1/67bf939ce684860770ed75fc/93e64d15-1c6d-4893-a7e7-85bf82c6d034/AndrewRobb_WBDMax.png" alt="WBD Max">
+    </div>
+    <div class="project-title">WBD MAX: THE NEW STREAMING STANDARD</div>
+    <div class="project-grid">
+      <div class="project-overview">
+        <div class="project-meta-label">PROJECT OVERVIEW</div>
+        <div class="meta-line"><strong>Type:</strong> Global Streaming Product Design</div>
+        <div class="meta-line"><strong>Role:</strong> Product Design Manager</div>
+        <p class="project-desc">Drove product consistency across all platforms, ensuring the best execution of design vision and strategy. Oversaw the implementation of numerous features, concepts, and components, including a design system, complex interface animations, multi-language and accessibility support, and the unique compromises required for less-performant platforms (such as Roku and set-top boxes).</p>
+        <a href="https://www.andrewrobb.tv/wbdmax" target="_blank" class="view-project-link">VIEW PROJECT</a>
+      </div>
+      <div class="project-divider-img"></div>
+      <div class="project-highlights">
+        <div class="project-meta-label">HIGHLIGHTS</div>
+        <ul class="highlights-list">
+          <li>Facilitated the transition from HBO Max to Max by implementing new branding, components, navigation (e.g. discovery+ lens), etc.</li>
+          <li>Played a key role in rolling out the Bleacher Report Sports add-on, bringing live sports (including MLB, NBA, NHL, U.S. national soccer matches, and the 2024 Olympics) to Max.</li>
+          <li><strong>Maximized revenue:</strong> contributed to an 8% year-over-year revenue growth in streaming, amounting to 2.63 billion.</li>
+          <li><strong>Global expansion:</strong> drove efforts in the Euro and Latin American expansion, growing subscribers by 20% (to 110.5 million).</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- NAT GEO KIDS -->
+  <section class="project" id="natgeokids">
+    <div class="project-image">
+      <img src="https://images.squarespace-cdn.com/content/v1/67bf939ce684860770ed75fc/cc5296fd-6563-4db4-835d-4aa1499776f5/AndrewRobb_NatGeoKids.png" alt="Nat Geo Kids">
+    </div>
+    <div class="project-title">NAT GEO KIDS: WHERE PLAY MEETS DISCOVERY</div>
+    <div class="project-grid">
+      <div class="project-overview">
+        <div class="project-meta-label">PROJECT OVERVIEW</div>
+        <div class="meta-line"><strong>Type:</strong> Educational Streaming and Games</div>
+        <div class="meta-line"><strong>Role:</strong> Creative Lead and Production</div>
+        <p class="project-desc">Guided the creative vision and execution for the Nat Geo Kids App. Constructed a vibrant, kid-friendly interface, featuring rich, dynamic animations and playful mini-games to capture attention and encourage exploration. The app launched alongside the Nat Geo Kids TV channel in Latin America on both tablets and phones, creating a unified digital and broadcast presence. Developed using the You.i TV engine to ensure smooth performance across platforms.</p>
+        <a href="https://www.andrewrobb.tv/natgeokids" target="_blank" class="view-project-link">VIEW PROJECT</a>
+      </div>
+      <div class="project-divider-img"></div>
+      <div class="project-highlights">
+        <div class="project-meta-label">HIGHLIGHTS</div>
+        <ul class="highlights-list">
+          <li>Designed interactive mini-games as both standalone experiences and embedded features between video streams, maximizing user engagement.</li>
+          <li>Developed two skinnable game templates: "Tap and Destroy" (similar to Fruit Ninja) and "Tap and Match" (similar to classic memory games), incorporating complex sprite systems for lively in-game animations.</li>
+          <li><strong>Industry recognition:</strong> named one of the best apps of 2017 by Apple, celebrated for its engaging design and combination of streaming and gameplay.</li>
+          <li><strong>Positive user reception:</strong> maintained an average rating of 4.6 stars across app stores, reflecting user satisfaction and consistent positive feedback.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- NBA -->
+  <section class="project" id="nba">
+    <div class="project-image">
+      <img src="https://images.squarespace-cdn.com/content/v1/67bf939ce684860770ed75fc/187f2b24-eddf-495d-af08-fac4936f5a82/AndrewRobb_NBA.png" alt="NBA">
+    </div>
+    <div class="project-title">NBA: TRACK EVERY PLAY, CATCH EVERY GAME</div>
+    <div class="project-overview">
+      <div class="meta-line" style="margin-top:0"><strong>Type:</strong> Sports Streaming Product Design</div>
+      <div class="meta-line"><strong>Role:</strong> Creative Lead and Production</div>
+      <p class="project-desc">Led the design and implementation for the NBA streaming app, introducing innovative features like a comprehensive game schedule and live boxscore. The project focused on delivering a sleek, immersive user experience while seamlessly integrating real-time sports data.</p>
+      <a href="https://www.andrewrobb.tv/nba" target="_blank" class="view-project-link">VIEW PROJECT</a>
+    </div>
+  </section>
+
+  <!-- UI ANIMATION REEL -->
+  <section class="project" id="uianimationreel">
+    <div class="project-image">
+      <img src="https://images.squarespace-cdn.com/content/v1/67bf939ce684860770ed75fc/4c4f1d04-7bb8-41cb-b0ad-f7732f703822/AndrewRobb_UIAnimationReel.jpg" alt="UI Animation Reel">
+    </div>
+    <div class="project-title">UI ANIMATION REEL: UX ELEVATED BY MOTION</div>
+    <div class="project-overview">
+      <div class="meta-line" style="margin-top:0"><strong>Type:</strong> Motion and Interaction Design</div>
+      <div class="meta-line"><strong>Role:</strong> Creative and Motion Design Lead</div>
+      <p class="project-desc">Featuring animations created for notable brands, this reel highlights how purposeful motion enhances user engagement. Each clip showcases smooth transitions, enriched interactions, and practical motion-driven solutions, such as integrating ads through dynamic visual elements.</p>
+      <a href="https://vimeo.com/278928025" target="_blank" class="view-project-link">VIEW PROJECT</a>
+    </div>
+  </section>
+
+  <!-- D IS FOR DEPENDENCE -->
+  <section class="project" id="disfordependence">
+    <div class="project-image">
+      <img src="https://images.squarespace-cdn.com/content/v1/67bf939ce684860770ed75fc/fd457c24-3e9c-4ed3-a221-527819ef8698/AndrewRobb_DIsforDependence.jpg" alt="D Is for Dependence">
+    </div>
+    <div class="project-title">D IS FOR DEPENDENCE: TYPE STRUNG OUT</div>
+    <div class="project-overview">
+      <div class="meta-line" style="margin-top:0"><strong>Type:</strong> Cinematic Motion Design</div>
+      <div class="meta-line"><strong>Role:</strong> Art Direction and Animation</div>
+      <p class="project-desc">Exploring the dark reality of drug dependence, this motion graphic piece blends live-action and stop-motion techniques to capture the relentless cycle of addiction. The grunge aesthetic intensifies the tension between fleeting highs and crushing lows, portraying the brutal toll on mind and body.</p>
+      <a href="https://vimeo.com/37413547" target="_blank" class="view-project-link">VIEW PROJECT</a>
+    </div>
+  </section>
+
+  <!-- WE CHOOSE TO GO TO THE MOON -->
+  <section class="project" id="wechoosetogotothemoon">
+    <div class="project-image">
+      <img src="https://images.squarespace-cdn.com/content/v1/67bf939ce684860770ed75fc/af541b5a-d3c9-424b-a0b3-2355a4ca71aa/AndrewRobb_WeChoosetoGototheMoon.jpg" alt="We Choose to Go to the Moon">
+    </div>
+    <div class="project-title">WE CHOOSE TO GO TO THE MOON: REIMAGINED</div>
+    <div class="project-overview">
+      <div class="meta-line" style="margin-top:0"><strong>Type:</strong> Illustrated Storytelling</div>
+      <div class="meta-line"><strong>Role:</strong> Art Direction and Illustration</div>
+      <p class="project-desc">Combining John F. Kennedy's historic 1962 speech with sci-fi aesthetics, these storyboards capture the ambition and imagination of the space race. Inspired by mid-century sci-fi book cover art, the visuals reflect a bold vision of space exploration, blending historical context with retro-futurism.</p>
+      <a href="https://www.andrewrobb.tv/wechoosetogotothemoon" target="_blank" class="view-project-link">VIEW PROJECT</a>
+    </div>
+  </section>
+
+  <!-- MIAMI VICE -->
+  <section class="project" id="miamivice">
+    <div class="project-image">
+      <img src="https://images.squarespace-cdn.com/content/v1/67bf939ce684860770ed75fc/0192a846-3351-41dd-b06c-3f81d4e419dc/AndrewRobb_MiamiVice.jpg" alt="Miami Vice">
+    </div>
+    <div class="project-title">MIAMI VICE: GRAPHIC TRIBUTE TO A CLASSIC</div>
+    <div class="project-overview">
+      <div class="meta-line" style="margin-top:0"><strong>Type:</strong> Style Exploration</div>
+      <div class="meta-line"><strong>Role:</strong> Art Direction and Illustration</div>
+      <p class="project-desc">A stylized tribute to the iconic '80s TV series Miami Vice, reimagined through a Patrick Nagel-inspired lens. These styleboards capture the series' bold, colorful identity, emphasizing its unique blend of style, attitude, and vibrant storytelling, celebrating its lasting impact on pop culture.</p>
+      <a href="https://www.andrewrobb.tv/miamivice" target="_blank" class="view-project-link">VIEW PROJECT</a>
+    </div>
+  </section>
+
+  <!-- PERSONAL AWARDS -->
+  <section class="awards-section" id="awards">
+    <div class="section-title">PERSONAL AWARDS</div>
+    <div class="award-row">
+      <span class="award-name">Broadcast Graphics Award (X2)</span>
+      <span class="award-org">The Advertising and Design Club of Canada</span>
+    </div>
+    <div class="award-row">
+      <span class="award-name">Interactive Design Award</span>
+      <span class="award-org">Applied Arts</span>
+    </div>
+    <div class="award-row">
+      <span class="award-name">Motion Graphics Award (X2)</span>
+      <span class="award-org">Applied Arts</span>
+    </div>
+    <div class="award-row">
+      <span class="award-name">Young Blood Profile</span>
+      <span class="award-org">Applied Arts</span>
+    </div>
+    <div class="award-row">
+      <span class="award-name">Web Design Award</span>
+      <span class="award-org">Design Exchange</span>
+    </div>
+    <div class="award-row">
+      <span class="award-name">Interactive Animation Finalist</span>
+      <span class="award-org">FITC Awards</span>
+    </div>
+    <div class="award-row">
+      <span class="award-name">Motion Graphics Finalist</span>
+      <span class="award-org">FITC Awards</span>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <span class="footer-copy">© ANDREW ROBB, 2026</span>
+    <a href="mailto:hello@andrewrobb.tv" class="footer-email">hello@andrewrobb.tv</a>
+  </footer>
+
+  <!-- LIGHTBOX -->
+  <div id="lightbox" role="dialog" aria-modal="true" aria-label="Project viewer">
+    <div id="lightbox-backdrop"></div>
+    <div id="lightbox-panel">
+      <button id="lightbox-close" aria-label="Close">&times;</button>
+      <div id="lightbox-content">
+        <img id="lightbox-img" src="" alt="">
+      </div>
+    </div>
+  </div>
+
+</div><!-- /site-wrap -->
+
+<style>
+  /* ── LIGHTBOX ── */
+  #lightbox {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 1000;
+    align-items: center;
+    justify-content: center;
+  }
+  #lightbox.open { display: flex; }
+
+  #lightbox-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    cursor: pointer;
+    animation: lbFadeIn 0.2s ease;
+  }
+  #lightbox-panel {
+    position: relative;
+    z-index: 1;
+    max-width: 90vw;
+    max-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    animation: lbSlideUp 0.25s cubic-bezier(0.16,1,0.3,1);
+  }
+  #lightbox-close {
+    position: absolute;
+    top: -36px;
+    right: 0;
+    background: none;
+    border: none;
+    color: #aaa;
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 0 4px;
+    transition: color 0.15s;
+  }
+  #lightbox-close:hover { color: #fff; }
+  #lightbox-content {
+    overflow-y: auto;
+    max-height: 90vh;
+  }
+  #lightbox-img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  @keyframes lbFadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+  @keyframes lbSlideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+  const lightbox    = document.getElementById('lightbox');
+  const lbImg       = document.getElementById('lightbox-img');
+  const lbBackdrop  = document.getElementById('lightbox-backdrop');
+  const lbClose     = document.getElementById('lightbox-close');
+
+  function openLightbox(imgSrc, altText) {
+    lbImg.src = imgSrc;
+    lbImg.alt = altText || '';
+    lightbox.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('open');
+    document.body.style.overflow = '';
+    lbImg.src = '';
+  }
+
+  lbBackdrop.addEventListener('click', closeLightbox);
+  lbClose.addEventListener('click', closeLightbox);
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+  });
+
+  // Wire up each VIEW PROJECT link
+  document.querySelectorAll('.view-project-link').forEach(link => {
+    // Find the project image in the same section
+    const section = link.closest('.project');
+    const img = section ? section.querySelector('.project-image img') : null;
+    if (!img) return;
+
+    link.addEventListener('click', e => {
+      e.preventDefault();
+      openLightbox(img.src, img.alt);
+    });
+  });
+</script>
+
+</body>
+</html>
