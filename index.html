@@ -109,6 +109,11 @@
       height: auto;
       pointer-events: none;
       mix-blend-mode: screen;
+      display: block;
+    }
+
+    .logo-wrap video.hidden {
+      visibility: hidden;
     }
   </style>
 </head>
@@ -121,7 +126,7 @@
 
   <div class="logo-wrap">
     <div class="logo-inner">
-      <video id="logo-video" autoplay muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
+      <video id="logo-video" class="hidden" autoplay muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
     </div>
   </div>
 
@@ -172,6 +177,7 @@
 
       setTimeout(() => {
         logoVideo.currentTime = 0;
+        logoVideo.classList.remove('hidden');
         logoVideo.play().then(() => {
           const revealDelay = isSafari ? 100 : 0;
           setTimeout(() => {
