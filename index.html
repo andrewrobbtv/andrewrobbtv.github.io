@@ -90,10 +90,12 @@
       : 'images/AndrewRobb_Logo.webm';
     logoVideo.load();
 
-    // Delay play to sync with after background video fades in
+    // Delay play until after background video fades in
     setTimeout(() => {
-      logoVideo.play();
-      document.querySelector('.logo-wrap').style.opacity = '1';
+      logoVideo.currentTime = 0;
+      logoVideo.play().then(() => {
+        document.querySelector('.logo-wrap').style.opacity = '1';
+      });
     }, 2000);
 
     // === ELASTIC OVERSCROLL ===
