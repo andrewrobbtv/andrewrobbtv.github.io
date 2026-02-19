@@ -13,21 +13,13 @@
       width: 100%;
       height: 100%;
       background: #161616;
+      display: flex;
+      align-items: center;
+      justify-content: center;
       overflow: hidden;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: #e8e8e8;
     }
 
-    .overlay {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      background: #161616;
-      transition: opacity 0.5s ease;
-    }
+    .video-wrap {
       position: fixed;
       inset: 0;
       z-index: 0;
@@ -36,13 +28,14 @@
       transition: opacity 1.5s ease;
     }
 
+    /* Transparent overlay blocks right-click and drag on the video */
     .video-wrap::after {
       content: '';
       position: absolute;
       inset: 0;
     }
 
-    .video-wrap video {
+    video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -60,11 +53,14 @@
       opacity: 0;
     }
 
-    .logo-inner {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    .logo-wrap img {
+      width: 100vw;
+      height: auto;
     }
 
     .logo-wrap video {
@@ -72,31 +68,24 @@
       height: auto;
       pointer-events: none;
     }
-
-    .logo-wrap video.hidden {
-      visibility: hidden;
-    }
   </style>
 </head>
 <body>
-  <div class="overlay" id="overlay"></div>
   <div class="video-wrap">
-    <video id="bg-video" style="object-fit:cover;width:100%;height:100%;visibility:hidden;" autoplay loop muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback">
+    <video autoplay loop muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback">
       <source src="images/AndrewRobb_AnotherStaircase.mp4" type="video/mp4">
     </video>
   </div>
 
   <div class="logo-wrap">
-    <div class="logo-inner">
-      <video id="logo-video" class="hidden" autoplay muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
-    </div>
+    <video id="logo-video" autoplay muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
   </div>
 
   <script>
     // Detect Safari (but not Chrome, which also has Safari in its UA)
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const logoVideo = document.getElementById('logo-video');
-    const bgVideo = document.getElementById('bg-video');
+    const bgVideo = document.querySelector('.video-wrap video');
 
     logoVideo.src = isSafari
       ? 'images/AndrewRobb_Logo.mp4'
@@ -112,24 +101,19 @@
     }
 
     Promise.all([videoReady(bgVideo), videoReady(logoVideo)]).then(() => {
-      // Fade out the overlay first, then start the sequence
-      const overlay = document.getElementById('overlay');
-      overlay.style.opacity = '0';
-      setTimeout(() => overlay.style.display = 'none', 500);
-
-      bgVideo.style.visibility = 'visible';
+      // Fade in background video
       document.querySelector('.video-wrap').style.opacity = '1';
 
+      // After bg fade completes, play and show logo
       setTimeout(() => {
         logoVideo.currentTime = 0;
-        logoVideo.classList.remove('hidden');
         logoVideo.play().then(() => {
           const revealDelay = isSafari ? 100 : 0;
           setTimeout(() => {
             document.querySelector('.logo-wrap').style.opacity = '1';
           }, revealDelay);
         });
-      }, 1000);
+      }, 2000);
     });
 
     // === ELASTIC OVERSCROLL ===
@@ -146,11 +130,14 @@
     window.addEventListener('wheel', e => {
       scrollVelocity = Math.abs(e.deltaY);
       lastDelta = e.deltaY;
+
       const speedFactor = Math.min(scrollVelocity / 50, 3);
       const dynamicMax = baseMaxBounce * (1 + speedFactor * 0.8);
       const inputForce = e.deltaY * (0.4 + speedFactor * 0.3);
+
       targetY += inputForce;
       targetY = Math.max(-dynamicMax, Math.min(dynamicMax, targetY));
+
       velocity += e.deltaY * 0.08 * speedFactor;
     }, { passive: true });
 
@@ -168,45 +155,55 @@
       const now = Date.now();
       const delta = lastTouchY - e.touches[0].clientY;
       const dt = Math.max(now - lastTouchTime, 1);
-      touchVelocity = delta / dt * 16;
+
+      touchVelocity = delta / dt * 16; // normalize to ~60fps
       lastTouchY = e.touches[0].clientY;
       lastTouchTime = now;
+
       const speedFactor = Math.min(Math.abs(touchVelocity) / 5, 3);
       const dynamicMax = baseMaxBounce * (1 + speedFactor * 0.8);
+
       targetY += delta * (0.4 + speedFactor * 0.3);
       targetY = Math.max(-dynamicMax, Math.min(dynamicMax, targetY));
       velocity += touchVelocity * 0.08 * speedFactor;
     }, { passive: true });
 
     window.addEventListener('touchend', () => {
+      // Fling on release based on touch velocity
       velocity += touchVelocity * 0.3;
     }, { passive: true });
 
     function animateBounce() {
+      // Dynamic stiffness — snaps back harder the further it's displaced
       const displacement = Math.abs(currentY);
       const dynamicStiffness = baseStiffness * (1 + displacement / 200);
       const dynamicDamping = baseDamping - Math.min(displacement / 800, 0.1);
+
       const force = -currentY * dynamicStiffness;
       velocity += force;
       velocity *= dynamicDamping;
       currentY += velocity;
       targetY *= 0.82;
       currentY += (targetY - currentY) * 0.1;
+
+      // Squash & stretch scale based on velocity
       const speed = Math.abs(velocity);
       const stretch = 1 + Math.min(speed * 0.004, 0.12);
       const squash = 1 - Math.min(speed * 0.002, 0.06);
       const scaleX = velocity > 0 ? squash : stretch;
       const scaleY = velocity > 0 ? stretch : squash;
-      document.querySelector('.logo-inner').style.transform =
+
+      document.querySelector('.logo-wrap').style.transform =
         `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
+
       requestAnimationFrame(animateBounce);
     }
     animateBounce();
 
-    // Block right-click
+    // Block right-click on the whole page
     document.addEventListener('contextmenu', e => e.preventDefault());
 
-    // Block Ctrl/Cmd + S
+    // Block common save shortcuts (Ctrl/Cmd + S)
     document.addEventListener('keydown', e => {
       if ((e.ctrlKey || e.metaKey) && e.key === 's') e.preventDefault();
     });
