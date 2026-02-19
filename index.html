@@ -94,7 +94,11 @@
     setTimeout(() => {
       logoVideo.currentTime = 0;
       logoVideo.play().then(() => {
-        document.querySelector('.logo-wrap').style.opacity = '1';
+        // Safari needs an extra frame before revealing to avoid last-frame flash
+        const revealDelay = isSafari ? 100 : 0;
+        setTimeout(() => {
+          document.querySelector('.logo-wrap').style.opacity = '1';
+        }, revealDelay);
       });
     }, 2000);
 
