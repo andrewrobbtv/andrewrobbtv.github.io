@@ -27,11 +27,12 @@
     .bottom-links {
       position: fixed;
       bottom: 48px;
-      left: 5vw;
-      right: 5vw;
+      left: 50%;
+      transform: translateX(-50%);
       z-index: 2;
       display: flex;
-      justify-content: space-between;
+      gap: clamp(16px, 3vw, 40px);
+      white-space: nowrap;
       opacity: 0;
       transition: opacity 1.5s ease;
     }
