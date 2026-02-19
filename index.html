@@ -33,11 +33,6 @@
       display: flex;
       gap: 32px;
       white-space: nowrap;
-      background: rgba(0, 0, 0, 0.4);
-      padding: 10px 24px;
-      border-radius: 4px;
-      backdrop-filter: blur(8px);
-      -webkit-backdrop-filter: blur(8px);
     }
 
     .bottom-links a {
@@ -73,7 +68,10 @@
 
     .logo-wrap {
       position: fixed;
-      inset: 0;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
       z-index: 1;
       display: flex;
       align-items: center;
@@ -118,6 +116,16 @@
   </div>
 
   <script>
+    // Dynamically center logo above bottom links
+    function updateLogoOffset() {
+      const links = document.querySelector('.bottom-links');
+      const logoWrap = document.querySelector('.logo-wrap');
+      const linksHeight = links.offsetHeight + 24; // 24px = bottom margin
+      logoWrap.style.bottom = linksHeight + 'px';
+    }
+    updateLogoOffset();
+    window.addEventListener('resize', updateLogoOffset);
+
     // Detect Safari (but not Chrome, which also has Safari in its UA)
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const logoVideo = document.getElementById('logo-video');
