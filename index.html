@@ -93,6 +93,9 @@
       justify-content: center;
       pointer-events: none;
       opacity: 0;
+    }
+
+    .logo-wrap.animate {
       transition: bottom 1.5s cubic-bezier(0.16, 1, 0.3, 1),
                   opacity 0.5s ease;
     }
@@ -184,7 +187,9 @@
             document.querySelector('.logo-wrap').style.opacity = '1';
             setTimeout(() => {
               document.querySelector('.bottom-links').style.opacity = '1';
-              document.querySelector('.logo-wrap').style.bottom = getLinksOffset() + 'px';
+              const logoWrap = document.querySelector('.logo-wrap');
+              logoWrap.classList.add('animate');
+              logoWrap.style.bottom = getLinksOffset() + 'px';
             }, 1500);
           }, revealDelay);
         });
