@@ -17,7 +17,40 @@
       align-items: center;
       justify-content: center;
       overflow: hidden;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: #e8e8e8;
     }
+
+    .top-text {
+      position: fixed;
+      top: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      white-space: nowrap;
+    }
+
+    .bottom-links {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      gap: 32px;
+      white-space: nowrap;
+    }
+
+    .bottom-links a {
+      color: #e8e8e8;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .bottom-links a:hover { opacity: 0.5; }
 
     .video-wrap {
       position: fixed;
@@ -71,6 +104,8 @@
   </style>
 </head>
 <body>
+  <div class="top-text" id="top-text"></div>
+
   <div class="video-wrap">
     <video autoplay loop muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback">
       <source src="images/AndrewRobb_AnotherStaircase.mp4" type="video/mp4">
@@ -81,7 +116,19 @@
     <video id="logo-video" autoplay muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
   </div>
 
+  <div class="bottom-links">
+    <a href="https://www.linkedin.com/in/andrewrobbtv" target="_blank">LinkedIn</a>
+    <a href="https://dribbble.com/andrewrobb" target="_blank">Dribbble</a>
+    <a href="https://www.instagram.com/andrewrobb" target="_blank">Instagram</a>
+    <a href="mailto:hello@andrewrobb.tv">Email</a>
+  </div>
+
   <script>
+    // Random top text
+    const phrases = ['Vodka and cigarettes', 'Happiness in death', 'KMO forever'];
+    document.getElementById('top-text').textContent =
+      phrases[Math.floor(Math.random() * phrases.length)];
+
     // Detect Safari (but not Chrome, which also has Safari in its UA)
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const logoVideo = document.getElementById('logo-video');
