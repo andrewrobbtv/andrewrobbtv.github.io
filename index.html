@@ -250,7 +250,7 @@
       document.querySelector('.logo-inner').style.transform =
         `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
       document.querySelector('.bottom-links').style.transform =
-        `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
+        `translateX(-50%) translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
       requestAnimationFrame(animateBounce);
     }
     animateBounce();
