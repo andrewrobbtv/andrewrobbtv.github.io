@@ -113,13 +113,15 @@
   <div class="bottom-links">
     <a href="https://www.linkedin.com/in/andrewrobbtv" target="_blank">LinkedIn</a>
     <a href="https://dribbble.com/andrewrobb" target="_blank">Dribbble</a>
+    <a href="https://vimeo.com/andrewrobb" target="_blank">Vimeo</a>
+    <a href="https://www.instagram.com/andrewrobb" target="_blank">Instagram</a>
     <a id="email-link" href="#">E-mail</a>
   </div>
 
   <script>
     // Cloudflare-safe email assembly
     const addr = ['hello', 'andrewrobb.tv'].join('@');
-    document.getElementById('email-link').href = 'mailto:' + addr;
+    document.getElementById('email-link').href = 'mailto:' + addr + '?subject=New%20Phone%2C%20Who%20Dis%3F';
 
     // Detect Safari (but not Chrome, which also has Safari in its UA)
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
