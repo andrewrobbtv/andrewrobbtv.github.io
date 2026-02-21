@@ -101,8 +101,9 @@
     }
 
     Promise.all([videoReady(bgVideo), videoReady(logoVideo)]).then(() => {
-      // Fade in background video
-      document.querySelector('.video-wrap').style.opacity = '1';
+      setTimeout(() => {
+        // Fade in background video
+        document.querySelector('.video-wrap').style.opacity = '1';
 
       // After bg fade completes, play and show logo
       setTimeout(() => {
@@ -114,6 +115,7 @@
           }, revealDelay);
         });
       }, 2000);
+      }, 1000);
     });
 
     // === ELASTIC OVERSCROLL ===
