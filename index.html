@@ -249,6 +249,8 @@
       const scaleY = velocity > 0 ? stretch : squash;
       document.querySelector('.logo-inner').style.transform =
         `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
+      document.querySelector('.bottom-links').style.transform =
+        `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
       requestAnimationFrame(animateBounce);
     }
     animateBounce();
