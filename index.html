@@ -253,58 +253,7 @@
     }
     animateBounce();
 
-    // === LINK HOVER SPRING PHYSICS ===
-    document.querySelectorAll('.bottom-links a').forEach(link => {
-      let vy = 0, vx = 0, cy = 0, cx = 0;
-      let hovered = false;
-      let raf = null;
-
-      function springLoop() {
-        const stiffness = 0.18;
-        const damping = 0.6;
-
-        const targetY = hovered ? -12 : 0;
-        const targetX = 0;
-
-        const fy = (targetY - cy) * stiffness;
-        const fx = (targetX - cx) * stiffness;
-
-        vy += fy; vy *= damping;
-        vx += fx; vx *= damping;
-        cy += vy;
-        cx += vx;
-
-        const speed = Math.abs(vy);
-        const stretch = 1 + Math.min(speed * 0.06, 0.25);
-        const squash  = 1 - Math.min(speed * 0.03, 0.12);
-        const scaleX  = vy < 0 ? squash  : stretch;
-        const scaleY  = vy < 0 ? stretch : squash;
-
-        link.style.transform = `translateY(${cy}px) scaleX(${scaleX}) scaleY(${scaleY})`;
-        link.style.display = 'inline-block';
-
-        if (Math.abs(vy) > 0.01 || Math.abs(cy) > 0.01 || Math.abs(vx) > 0.01) {
-          raf = requestAnimationFrame(springLoop);
-        } else {
-          cy = hovered ? -12 : 0;
-          link.style.transform = `translateY(${cy}px)`;
-          raf = null;
-        }
-      }
-
-      link.addEventListener('mouseenter', () => {
-        hovered = true;
-        vy -= 6; // initial kick upward
-        if (!raf) raf = requestAnimationFrame(springLoop);
-      });
-
-      link.addEventListener('mouseleave', () => {
-        hovered = false;
-        if (!raf) raf = requestAnimationFrame(springLoop);
-      });
-    });
-
-
+    // Block right-click
     document.addEventListener('contextmenu', e => e.preventDefault());
 
     // Block Ctrl/Cmd + S
