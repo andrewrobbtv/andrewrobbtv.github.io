@@ -53,7 +53,28 @@
       opacity: 0;
     }
 
-    @keyframes fadeIn {
+    .bottom-links {
+      position: fixed;
+      bottom: 48px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      display: flex;
+      gap: 24px;
+      white-space: nowrap;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .bottom-links a {
+      color: #f4f3f2;
+      text-decoration: none;
+      transition: opacity 0.2s;
+    }
+
+    .bottom-links a:hover { opacity: 0.5; }
       from { opacity: 0; }
       to   { opacity: 1; }
     }
@@ -81,7 +102,17 @@
     <video id="logo-video" autoplay muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
   </div>
 
+  <div class="bottom-links">
+    <a href="https://www.linkedin.com/in/andrewrobbtv" target="_blank">LinkedIn</a>
+    <a href="https://dribbble.com/andrewrobb" target="_blank">Dribbble</a>
+    <a id="email-link" href="#">E-mail</a>
+  </div>
+
   <script>
+    // Cloudflare-safe email assembly
+    const addr = ['hello', 'andrewrobb.tv'].join('@');
+    document.getElementById('email-link').href = 'mailto:' + addr;
+
     // Detect Safari (but not Chrome, which also has Safari in its UA)
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const logoVideo = document.getElementById('logo-video');
