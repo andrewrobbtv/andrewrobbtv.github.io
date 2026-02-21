@@ -100,7 +100,6 @@
 <body>
   <div class="video-wrap">
     <video autoplay loop muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback">
-      <source src="images/AndrewRobb_AnotherStaircase.mp4" type="video/mp4">
     </video>
   </div>
 
@@ -123,10 +122,19 @@
     const addr = ['hello', 'andrewrobb.tv'].join('@');
     document.getElementById('email-link').href = 'mailto:' + addr;
 
+    // Pick a random background video
+    const bgVideos = [
+      'images/AndrewRobb_Video01.mp4',
+      'images/AndrewRobb_Video02.mp4',
+      'images/AndrewRobb_Video03.mp4'
+    ];
+    const bgVideo = document.querySelector('.video-wrap video');
+    bgVideo.src = bgVideos[Math.floor(Math.random() * bgVideos.length)];
+    bgVideo.load();
+
     // Detect Safari (but not Chrome, which also has Safari in its UA)
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const logoVideo = document.getElementById('logo-video');
-    const bgVideo = document.querySelector('.video-wrap video');
 
     logoVideo.src = isSafari
       ? 'images/AndrewRobb_Logo.mp4'
