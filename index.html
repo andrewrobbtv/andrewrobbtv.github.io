@@ -265,8 +265,8 @@
         `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
 
       // Links lag behind logo with softer, slower spring
-      linksVelocity += (-linksY * 0.035) + ((currentY - linksY) * 0.015);
-      linksVelocity *= 0.75;
+      linksVelocity += (-linksY * 0.06) + ((currentY - linksY) * 0.04);
+      linksVelocity *= 0.68;
       linksY += linksVelocity;
 
       document.querySelector('.bottom-links').style.transform =
