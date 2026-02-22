@@ -202,6 +202,7 @@
 
     // === ELASTIC OVERSCROLL ===
     let currentY = 0, targetY = 0, velocity = 0, scrollVelocity = 0;
+    let linksY = 0, linksVelocity = 0;
 
     const baseStiffness = 0.06;
     const baseDamping = 0.65;
@@ -262,8 +263,14 @@
       const scaleY = velocity > 0 ? stretch : squash;
       document.querySelector('.logo-inner').style.transform =
         `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
+
+      // Links lag behind logo with softer, slower spring
+      linksVelocity += (-linksY * 0.035) + ((currentY - linksY) * 0.015);
+      linksVelocity *= 0.75;
+      linksY += linksVelocity;
+
       document.querySelector('.bottom-links').style.transform =
-        `translateX(-50%) translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
+        `translateX(-50%) translateY(${-linksY}px)`;
       requestAnimationFrame(animateBounce);
     }
     animateBounce();
