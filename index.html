@@ -216,7 +216,8 @@
       const inputForce = e.deltaY * (0.4 + speedFactor * 0.3);
       targetY += inputForce;
       targetY = Math.max(-dynamicMax, Math.min(dynamicMax, targetY));
-      velocity += e.deltaY * 0.08 * speedFactor;
+      const velocityInput = Math.min(Math.abs(e.deltaY * 0.08 * speedFactor), 20) * Math.sign(e.deltaY);
+      velocity += velocityInput;
     }, { passive: true });
 
     let lastTouchY = 0;
