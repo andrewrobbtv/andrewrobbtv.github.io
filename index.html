@@ -250,25 +250,15 @@
       const displacement = Math.abs(currentY);
       const dynamicStiffness = baseStiffness * (1 + displacement / 200);
       const dynamicDamping = baseDamping - Math.min(displacement / 800, 0.1);
-      // Soft limit function — resists beyond threshold, never hard stops
-      function softLimit(val, limit) {
-        if (Math.abs(val) <= limit) return val;
-        const excess = Math.abs(val) - limit;
-        const sign = val > 0 ? 1 : -1;
-        return sign * (limit + excess / (1 + excess / limit));
-      }
-
       // Links are the primary element, logo follows with lag
       linksVelocity += (-linksY * 0.06);
       linksVelocity *= baseDamping;
       linksY += linksVelocity;
-      linksY = softLimit(linksY, 60);
 
       // Logo chases links with a softer lag
       const logoForce = -currentY * 0.04 + (linksY - currentY) * 0.12;
       velocity = velocity * 0.65 + logoForce;
       currentY += velocity;
-      currentY = softLimit(currentY, 120);
       const speed = Math.abs(velocity);
       const stretch = 1 + Math.min(speed * 0.004, 0.12);
       const squash = 1 - Math.min(speed * 0.002, 0.06);
