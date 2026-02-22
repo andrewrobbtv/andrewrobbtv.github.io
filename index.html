@@ -264,9 +264,9 @@
       document.querySelector('.logo-inner').style.transform =
         `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
 
-      // Links follow logo with reduced coupling for less total displacement
-      linksVelocity += (-linksY * 0.08) + ((currentY - linksY) * 0.12);
-      linksVelocity *= 0.66;
+      // Links tightly coupled to logo with slight lag
+      linksVelocity += (-linksY * 0.055) + ((currentY - linksY) * 0.25);
+      linksVelocity *= 0.64;
       linksY += linksVelocity;
 
       document.querySelector('.bottom-links').style.transform =
