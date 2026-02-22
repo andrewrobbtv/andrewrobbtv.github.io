@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="theme-color" content="#161616">
   <meta property="og:title" content="ANDREWROBB.TV">
   <meta property="og:image" content="images/AndrewRobb_SocialImage.jpg">
@@ -20,6 +20,7 @@
       height: 100dvh;
       background: #161616;
       overflow: hidden;
+      padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
     }
 
     .video-wrap {
@@ -41,9 +42,13 @@
     }
 
     .video-wrap video {
+      position: absolute;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       object-fit: cover;
+      object-position: center;
       pointer-events: none;
     }
 
