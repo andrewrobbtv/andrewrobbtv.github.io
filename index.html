@@ -342,6 +342,11 @@
       }, { passive: true });
     });
 
+    // Resume background video when user returns to tab
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) bgVideo.play();
+    });
+
     // Block right-click
     document.addEventListener('contextmenu', e => e.preventDefault());
 
