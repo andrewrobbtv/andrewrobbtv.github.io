@@ -65,7 +65,7 @@
       width: 100%;
     }
 
-    .logo-wrap video {
+    #logo-canvas {
       width: 100vw;
       height: auto;
       pointer-events: none;
@@ -121,7 +121,7 @@
 
   <div class="logo-wrap">
     <div class="logo-inner">
-      <video id="logo-video" autoplay muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
+      <canvas id="logo-canvas"></canvas>
     </div>
   </div>
 
@@ -140,13 +140,37 @@
 
     // Detect Safari (but not Chrome, which also has Safari in its UA)
     const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
-    const logoVideo = document.getElementById('logo-video');
     const bgVideo = document.querySelector('.video-wrap video');
+    const canvas = document.getElementById('logo-canvas');
+    const ctx = canvas.getContext('2d');
 
-    logoVideo.src = isSafari
-      ? 'images/AndrewRobb_Logo.mp4'
-      : 'images/AndrewRobb_Logo.webm';
-    logoVideo.load();
+    // Load PNG sequence
+    const FRAME_COUNT = 50;
+    const FRAME_START = 7;
+    const FRAME_RATE = 30;
+    const frames = [];
+    let framesLoaded = 0;
+
+    function padded(n) {
+      return String(n).padStart(3, '0');
+    }
+
+    const frameLoadPromise = new Promise(resolve => {
+      for (let i = 0; i < FRAME_COUNT; i++) {
+        const img = new Image();
+        img.src = `images/PNGSequence/AndrewRobb_Logo_${padded(FRAME_START + i)}.png`;
+        img.onload = () => {
+          framesLoaded++;
+          if (framesLoaded === 1) {
+            // Set canvas size from first frame
+            canvas.width = img.naturalWidth;
+            canvas.height = img.naturalHeight;
+          }
+          if (framesLoaded === FRAME_COUNT) resolve();
+        };
+        frames[i] = img;
+      }
+    });
 
     // Dynamically calculate offset to center logo above links
     function getLinksOffset() {
@@ -161,7 +185,6 @@
       }
     });
 
-    // Wait for both videos to be ready before starting the sequence
     function videoReady(video) {
       return new Promise(resolve => {
         if (video.readyState >= 3) return resolve();
@@ -169,7 +192,33 @@
       });
     }
 
-    Promise.all([videoReady(bgVideo), videoReady(logoVideo)]).then(() => {
+    // Play PNG sequence on canvas, returns a promise that resolves when done
+    function playSequence() {
+      return new Promise(resolve => {
+        let currentFrame = 0;
+        const interval = 1000 / FRAME_RATE;
+        let lastTime = null;
+
+        function step(timestamp) {
+          if (!lastTime) lastTime = timestamp;
+          const elapsed = timestamp - lastTime;
+
+          if (elapsed >= interval) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.drawImage(frames[currentFrame], 0, 0);
+            lastTime = timestamp - (elapsed % interval);
+            currentFrame++;
+            if (currentFrame >= FRAME_COUNT) {
+              return resolve();
+            }
+          }
+          requestAnimationFrame(step);
+        }
+        requestAnimationFrame(step);
+      });
+    }
+
+    Promise.all([videoReady(bgVideo), frameLoadPromise]).then(() => {
       setTimeout(() => {
 
         // 1. Fade in background video
@@ -177,21 +226,13 @@
 
         // 2. After bg fade, play and show logo
         setTimeout(() => {
-          logoVideo.currentTime = 0;
-          logoVideo.play().then(() => {
-            const revealDelay = isSafari ? 100 : 0;
-            setTimeout(() => {
-              document.querySelector('.logo-wrap').style.opacity = '1';
-
-              // 3. After logo animation completes, slide logo up and fade in links
-              logoVideo.addEventListener('ended', () => {
-                const logoWrap = document.querySelector('.logo-wrap');
-                logoWrap.classList.add('slide');
-                logoWrap.style.bottom = getLinksOffset() + 'px';
-                document.querySelector('.bottom-links').style.opacity = '1';
-              }, { once: true });
-
-            }, revealDelay);
+          document.querySelector('.logo-wrap').style.opacity = '1';
+          playSequence().then(() => {
+            // 3. After logo animation completes, slide logo up and fade in links
+            const logoWrap = document.querySelector('.logo-wrap');
+            logoWrap.classList.add('slide');
+            logoWrap.style.bottom = getLinksOffset() + 'px';
+            document.querySelector('.bottom-links').style.opacity = '1';
           });
         }, 2000);
 
