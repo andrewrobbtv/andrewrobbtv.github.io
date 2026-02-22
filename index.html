@@ -238,7 +238,7 @@
         // 1. Fade in background video
         document.querySelector('.video-wrap').style.opacity = '1';
 
-        // 2. After bg fade, play and show logo
+        // 2. After short offset, play and show logo (overlapping with bg fade)
         setTimeout(() => {
           document.querySelector('.logo-wrap').style.opacity = '1';
           playSequence().then(() => {
@@ -248,7 +248,7 @@
             logoWrap.style.bottom = getLinksOffset() + 'px';
             document.querySelector('.bottom-links').style.opacity = '1';
           });
-        }, 1500);
+        }, 750);
 
       }, 1000);
     });
