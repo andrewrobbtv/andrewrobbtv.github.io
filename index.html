@@ -209,17 +209,14 @@
     const baseDamping = 0.65;
     const baseMaxBounce = 140;
 
-    // Smoothed scroll input
-    let smoothedDelta = 0;
-
     window.addEventListener('wheel', e => {
       scrollVelocity = Math.abs(e.deltaY);
       const speedFactor = Math.min(scrollVelocity / 50, 3);
       const dynamicMax = baseMaxBounce * (1 + speedFactor * 0.8);
-      // Smooth the delta over time to avoid spikes
-      smoothedDelta = smoothedDelta * 0.6 + e.deltaY * 0.4;
-      const velocityInput = Math.min(Math.abs(smoothedDelta * 0.08 * speedFactor), 15) * Math.sign(e.deltaY);
-      velocity += velocityInput;
+      const inputForce = e.deltaY * (0.4 + speedFactor * 0.3);
+      targetY += inputForce;
+      targetY = Math.max(-dynamicMax, Math.min(dynamicMax, targetY));
+      velocity += e.deltaY * 0.08 * speedFactor;
     }, { passive: true });
 
     let lastTouchY = 0;
@@ -258,7 +255,8 @@
       velocity += force;
       velocity *= dynamicDamping;
       currentY += velocity;
-
+      targetY *= 0.82;
+      currentY += (targetY - currentY) * 0.1;
       const speed = Math.abs(velocity);
       const stretch = 1 + Math.min(speed * 0.004, 0.12);
       const squash = 1 - Math.min(speed * 0.002, 0.06);
