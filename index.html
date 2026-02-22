@@ -264,8 +264,8 @@
       document.querySelector('.logo-inner').style.transform =
         `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
 
-      // Links lag behind logo with softer, slower spring
-      linksVelocity += (-linksY * 0.15) + ((currentY - linksY) * 0.16);
+      // Links move opposite to logo — creates separation instead of overlap
+      linksVelocity += (-linksY * 0.15) + ((-currentY - linksY) * 0.16);
       linksVelocity *= 0.57;
       linksY += linksVelocity;
 
