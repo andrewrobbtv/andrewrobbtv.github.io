@@ -94,21 +94,37 @@
       transition: opacity 0.4s ease, letter-spacing 0.4s ease;
     }
 
-    .bottom-links:hover a {
-      opacity: 0.35;
-    }
-
-    .bottom-links a:hover {
-      opacity: 1;
-      letter-spacing: 0.2em;
-    }
-
     .bottom-links span {
       transition: opacity 0.4s ease;
     }
 
-    .bottom-links:hover span {
-      opacity: 0.35;
+    @media (hover: none) {
+      .bottom-links:active a {
+        opacity: 0.35;
+      }
+
+      .bottom-links a:active {
+        opacity: 1;
+      }
+
+      .bottom-links:active span {
+        opacity: 0.35;
+      }
+    }
+
+    @media (hover: hover) {
+      .bottom-links:hover a {
+        opacity: 0.35;
+      }
+
+      .bottom-links a:hover {
+        opacity: 1;
+        letter-spacing: 0.2em;
+      }
+
+      .bottom-links:hover span {
+        opacity: 0.35;
+      }
     }
   </style>
 </head>
@@ -138,8 +154,6 @@
     const addr = ['hello', 'andrewrobb.tv'].join('@');
     document.getElementById('email-link').href = 'mailto:' + addr;
 
-    // Detect Safari (but not Chrome, which also has Safari in its UA)
-    const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
     const bgVideo = document.querySelector('.video-wrap video');
     const canvas = document.getElementById('logo-canvas');
     const ctx = canvas.getContext('2d');
