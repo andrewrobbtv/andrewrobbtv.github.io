@@ -99,15 +99,15 @@
     }
 
     @media (hover: none) {
-      .bottom-links:active a {
+      .bottom-links.touch-active a {
         opacity: 0.35;
       }
 
-      .bottom-links a:active {
+      .bottom-links a.touch-active {
         opacity: 1;
       }
 
-      .bottom-links:active span {
+      .bottom-links.touch-active span {
         opacity: 0.35;
       }
     }
@@ -324,6 +324,21 @@
       requestAnimationFrame(animateBounce);
     }
     animateBounce();
+
+    // Touch tap feedback for mobile
+    document.querySelectorAll('.bottom-links a').forEach(link => {
+      link.addEventListener('touchstart', () => {
+        document.querySelector('.bottom-links').classList.add('touch-active');
+        link.classList.add('touch-active');
+      }, { passive: true });
+
+      link.addEventListener('touchend', () => {
+        setTimeout(() => {
+          document.querySelector('.bottom-links').classList.remove('touch-active');
+          link.classList.remove('touch-active');
+        }, 300);
+      }, { passive: true });
+    });
 
     // Block right-click
     document.addEventListener('contextmenu', e => e.preventDefault());
