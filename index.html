@@ -71,21 +71,12 @@
       pointer-events: none;
     }
 
-    .bottom-gradient {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 160px;
-      background: linear-gradient(to top, rgba(0,0,0,0.6) 0%, transparent 100%);
-      z-index: 3;
-      pointer-events: none;
-    }
+    .bottom-links {
       position: fixed;
       bottom: 48px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 4;
+      z-index: 2;
       display: flex;
       gap: 24px;
       white-space: nowrap;
@@ -135,8 +126,6 @@
       <video id="logo-video" autoplay muted playsinline disablepictureinpicture controlslist="nodownload nofullscreen noremoteplayback"></video>
     </div>
   </div>
-
-  <div class="bottom-gradient"></div>
 
   <div class="bottom-links">
     <a href="https://www.linkedin.com/in/andrewrobbtv" target="_blank">LinkedIn</a>
