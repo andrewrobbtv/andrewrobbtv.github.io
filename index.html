@@ -264,9 +264,9 @@
       document.querySelector('.logo-inner').style.transform =
         `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
 
-      // Links follow logo with slight lag
-      linksVelocity += (-linksY * 0.15) + ((currentY - linksY) * 0.16);
-      linksVelocity *= 0.57;
+      // Links follow logo closely with just a hint of lag
+      linksVelocity += (-linksY * 0.055) + ((currentY - linksY) * 0.25);
+      linksVelocity *= 0.64;
       linksY += linksVelocity;
 
       document.querySelector('.bottom-links').style.transform =
