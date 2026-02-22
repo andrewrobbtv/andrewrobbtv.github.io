@@ -75,7 +75,7 @@
       position: fixed;
       bottom: 48px;
       left: 50%;
-      transform: translateX(-50%);
+      transform: translateX(-50%) translateY(12px);
       z-index: 2;
       display: flex;
       gap: 24px;
@@ -86,7 +86,7 @@
       letter-spacing: 0.08em;
       text-transform: uppercase;
       opacity: 0;
-      transition: opacity 1.5s ease;
+      transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     .bottom-links a {
@@ -190,7 +190,9 @@
                 const logoWrap = document.querySelector('.logo-wrap');
                 logoWrap.classList.add('slide');
                 logoWrap.style.bottom = getLinksOffset() + 'px';
-                document.querySelector('.bottom-links').style.opacity = '1';
+                const bottomLinks = document.querySelector('.bottom-links');
+                bottomLinks.style.opacity = '1';
+                bottomLinks.style.transform = 'translateX(-50%) translateY(0)';
               }, { once: true });
 
             }, revealDelay);
@@ -201,15 +203,17 @@
     });
 
     // === ELASTIC OVERSCROLL ===
-    // Bounce targets .logo-inner so it doesn't conflict with the slide on .logo-wrap
-    let currentY = 0;
-    let targetY = 0;
-    let velocity = 0;
-    let scrollVelocity = 0;
+    // Logo and links each have their own spring — links lag behind for a separate feel
+    let currentY = 0, targetY = 0, velocity = 0, scrollVelocity = 0;
+    let linksY = 0, linksVelocity = 0;
 
     const baseStiffness = 0.06;
     const baseDamping = 0.65;
     const baseMaxBounce = 140;
+
+    // Links spring — softer and slightly delayed
+    const linksStiffness = 0.04;
+    const linksDamping = 0.70;
 
     window.addEventListener('wheel', e => {
       scrollVelocity = Math.abs(e.deltaY);
@@ -250,6 +254,7 @@
     }, { passive: true });
 
     function animateBounce() {
+      // Logo spring
       const displacement = Math.abs(currentY);
       const dynamicStiffness = baseStiffness * (1 + displacement / 200);
       const dynamicDamping = baseDamping - Math.min(displacement / 800, 0.1);
@@ -259,15 +264,31 @@
       currentY += velocity;
       targetY *= 0.82;
       currentY += (targetY - currentY) * 0.1;
+
       const speed = Math.abs(velocity);
       const stretch = 1 + Math.min(speed * 0.004, 0.12);
       const squash = 1 - Math.min(speed * 0.002, 0.06);
       const scaleX = velocity > 0 ? squash : stretch;
       const scaleY = velocity > 0 ? stretch : squash;
+
       document.querySelector('.logo-inner').style.transform =
         `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
+
+      // Links spring — chases logo position with its own softer physics
+      const linksForce = -linksY * linksStiffness + (currentY * 0.4);
+      linksVelocity += linksForce;
+      linksVelocity *= linksDamping;
+      linksY += linksVelocity;
+
+      const linksSpeed = Math.abs(linksVelocity);
+      const linksStretch = 1 + Math.min(linksSpeed * 0.002, 0.06);
+      const linksSquash = 1 - Math.min(linksSpeed * 0.001, 0.03);
+      const linksScaleX = linksVelocity > 0 ? linksSquash : linksStretch;
+      const linksScaleY = linksVelocity > 0 ? linksStretch : linksSquash;
+
       document.querySelector('.bottom-links').style.transform =
-        `translateX(-50%) translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
+        `translateX(-50%) translateY(${-linksY}px) scaleX(${linksScaleX}) scaleY(${linksScaleY})`;
+
       requestAnimationFrame(animateBounce);
     }
     animateBounce();
