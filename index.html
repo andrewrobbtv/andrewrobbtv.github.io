@@ -264,10 +264,11 @@
       document.querySelector('.logo-inner').style.transform =
         `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
 
-      // Links follow logo closely with just a hint of lag
+      // Links follow logo closely with just a hint of lag, capped to prevent overlap
       linksVelocity += (-linksY * 0.055) + ((currentY - linksY) * 0.25);
       linksVelocity *= 0.64;
       linksY += linksVelocity;
+      linksY = Math.max(-60, Math.min(60, linksY)); // cap displacement
 
       document.querySelector('.bottom-links').style.transform =
         `translateX(-50%) translateY(${-linksY}px)`;
