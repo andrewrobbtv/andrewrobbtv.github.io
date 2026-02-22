@@ -264,8 +264,8 @@
       document.querySelector('.logo-inner').style.transform =
         `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
 
-      // Links move opposite to logo — creates separation instead of overlap
-      linksVelocity += (-linksY * 0.15) + ((-currentY - linksY) * 0.16);
+      // Links always push down based on logo's absolute displacement
+      linksVelocity += (-linksY * 0.15) + (Math.abs(currentY) * 0.16);
       linksVelocity *= 0.57;
       linksY += linksVelocity;
 
