@@ -215,7 +215,7 @@
       const inputForce = e.deltaY * (0.4 + speedFactor * 0.3);
       targetY += inputForce;
       targetY = Math.max(-dynamicMax, Math.min(dynamicMax, targetY));
-      velocity += e.deltaY * 0.08 * speedFactor;
+      linksVelocity += e.deltaY * 0.08 * speedFactor;
     }, { passive: true });
 
     let lastTouchY = 0;
@@ -239,23 +239,26 @@
       const dynamicMax = baseMaxBounce * (1 + speedFactor * 0.8);
       targetY += delta * (0.4 + speedFactor * 0.3);
       targetY = Math.max(-dynamicMax, Math.min(dynamicMax, targetY));
-      velocity += touchVelocity * 0.08 * speedFactor;
+      linksVelocity += touchVelocity * 0.08 * speedFactor;
     }, { passive: true });
 
     window.addEventListener('touchend', () => {
-      velocity += touchVelocity * 0.3;
+      linksVelocity += touchVelocity * 0.3;
     }, { passive: true });
 
     function animateBounce() {
       const displacement = Math.abs(currentY);
       const dynamicStiffness = baseStiffness * (1 + displacement / 200);
       const dynamicDamping = baseDamping - Math.min(displacement / 800, 0.1);
-      const force = -currentY * dynamicStiffness;
-      velocity += force;
-      velocity *= dynamicDamping;
+      // Links are the primary element, logo follows with lag
+      linksVelocity += (-linksY * 0.06);
+      linksVelocity *= baseDamping;
+      linksY += linksVelocity;
+
+      // Logo chases links with a softer lag
+      const logoForce = -currentY * 0.04 + (linksY - currentY) * 0.015;
+      velocity = velocity * 0.65 + logoForce;
       currentY += velocity;
-      targetY *= 0.82;
-      currentY += (targetY - currentY) * 0.1;
       const speed = Math.abs(velocity);
       const stretch = 1 + Math.min(speed * 0.004, 0.12);
       const squash = 1 - Math.min(speed * 0.002, 0.06);
@@ -263,11 +266,6 @@
       const scaleY = velocity > 0 ? stretch : squash;
       document.querySelector('.logo-inner').style.transform =
         `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
-
-      // Links tightly coupled to logo with slight lag
-      linksVelocity += (-linksY * 0.055) + ((currentY - linksY) * 0.25);
-      linksVelocity *= 0.64;
-      linksY += linksVelocity;
 
       document.querySelector('.bottom-links').style.transform =
         `translateX(-50%) translateY(${-linksY}px)`;
