@@ -135,6 +135,8 @@
       background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
       z-index: 1;
       pointer-events: none;
+      opacity: 0;
+      transition: opacity 1.5s ease;
     }
 
     @media (hover: none) {
@@ -287,6 +289,7 @@
             const logoWrap = document.querySelector('.logo-wrap');
             logoWrap.classList.add('slide');
             logoWrap.style.bottom = getLinksOffset() + 'px';
+            document.querySelector('.bottom-gradient').style.opacity = '1';
             document.querySelector('.bottom-links').style.opacity = '1';
           });
         }, 750);
