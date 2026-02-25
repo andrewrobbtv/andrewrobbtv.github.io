@@ -82,7 +82,7 @@
       bottom: 48px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 2;
+      z-index: 3;
       display: flex;
       gap: 24px;
       white-space: nowrap;
@@ -125,18 +125,16 @@
       z-index: -1;
     }
 
-    /* Radial glow behind links */
-    .bottom-links::before {
-      content: '';
-      position: absolute;
-      width: 120%;
-      height: 300%;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      background: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, transparent 70%);
+    /* Gradient fade behind links */
+    .bottom-gradient {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 200px;
+      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
+      z-index: 1;
       pointer-events: none;
-      z-index: -1;
     }
 
     @media (hover: none) {
@@ -181,6 +179,8 @@
       <canvas id="logo-canvas" role="img" aria-label="Logo and logo animation for Andrew Robb"></canvas>
     </div>
   </div>
+
+  <div class="bottom-gradient"></div>
 
   <div class="bottom-links">
     <a href="https://www.linkedin.com/in/andrewrobbtv" target="_blank" aria-label="Andrew Robb's LinkedIn Profile">LinkedIn</a>
