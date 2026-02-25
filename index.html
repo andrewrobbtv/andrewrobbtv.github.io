@@ -64,6 +64,7 @@
 
     /* Inner wrapper is the bounce target */
     .logo-inner {
+      position: relative;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -111,6 +112,31 @@
     .bottom-links a:focus-visible {
       outline: 1px solid #f4f3f2;
       outline-offset: 4px;
+    }
+
+    /* Radial glow behind logo */
+    .logo-inner::before {
+      content: '';
+      position: absolute;
+      width: 80vw;
+      height: 80vw;
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    /* Radial glow behind links */
+    .bottom-links::before {
+      content: '';
+      position: absolute;
+      width: 120%;
+      height: 300%;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, transparent 70%);
+      pointer-events: none;
+      z-index: -1;
     }
 
     @media (hover: none) {
