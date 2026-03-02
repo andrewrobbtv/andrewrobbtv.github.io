@@ -232,7 +232,10 @@
     // Dynamically calculate offset to center logo above links
     function getLinksOffset() {
       const links = document.querySelector('.bottom-links');
-      return links.offsetHeight + 48 + 24; // bottom margin + gap
+      const linksHeight = links.offsetHeight;
+      const bottomMargin = 48;
+      const gap = 24;
+      return linksHeight + bottomMargin + gap;
     }
 
     window.addEventListener('resize', () => {
