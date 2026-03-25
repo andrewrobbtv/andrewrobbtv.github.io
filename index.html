@@ -79,7 +79,7 @@
       background: radial-gradient(ellipse at center, transparent 30%, rgba(0,0,0,0.75) 100%);
       pointer-events: none;
       opacity: 0;
-      transition: opacity 1.5s ease;
+      transition: opacity 1.5s ease; /* duration overridden in JS */
     }
 
     /* Radial glow behind logo */
@@ -183,7 +183,10 @@
 
         // 2. After short offset, play and show logo (overlapping with bg fade)
         setTimeout(() => {
-          document.querySelector('.vignette').style.opacity = '1';
+          const animDuration = Math.round(FRAME_COUNT / FRAME_RATE * 1000);
+          const vignette = document.querySelector('.vignette');
+          vignette.style.transition = `opacity ${animDuration}ms ease`;
+          vignette.style.opacity = '1';
           document.querySelector('.logo-wrap').style.opacity = '1';
           playSequence();
         }, 750);
