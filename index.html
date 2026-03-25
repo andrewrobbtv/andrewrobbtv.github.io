@@ -43,7 +43,6 @@
       pointer-events: none;
     }
 
-    /* Outer wrapper handles the slide-up transition */
     .logo-wrap {
       position: fixed;
       top: 0;
@@ -56,10 +55,6 @@
       justify-content: center;
       pointer-events: none;
       opacity: 0;
-    }
-
-    .logo-wrap.slide {
-      transition: bottom 1.5s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
     /* Inner wrapper is the bounce target */
@@ -77,43 +72,6 @@
       pointer-events: none;
     }
 
-    .bottom-links {
-      position: fixed;
-      bottom: 48px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 3;
-      display: flex;
-      gap: 24px;
-      white-space: nowrap;
-      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      opacity: 0;
-      transition: opacity 1.5s ease;
-    }
-
-    .bottom-links a {
-      color: #f4f3f2;
-      text-decoration: none;
-      font-weight: 500;
-      padding: 12px 4px;
-      transition: opacity 0.4s ease, letter-spacing 0.4s ease;
-    }
-
-    .bottom-links span {
-      font-weight: 300;
-      color: #f4f3f2;
-      padding: 12px 0;
-      transition: opacity 0.4s ease;
-    }
-
-    .bottom-links a:focus-visible {
-      outline: 1px solid #f4f3f2;
-      outline-offset: 4px;
-    }
-
     /* Radial glow behind logo */
     .logo-inner::before {
       content: '';
@@ -123,49 +81,6 @@
       background: radial-gradient(ellipse at center, rgba(0,0,0,0.5) 0%, transparent 70%);
       pointer-events: none;
       z-index: -1;
-    }
-
-    /* Gradient fade behind links */
-    .bottom-gradient {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      height: 200px;
-      background: linear-gradient(to top, rgba(0,0,0,0.5) 0%, transparent 100%);
-      z-index: 1;
-      pointer-events: none;
-      opacity: 0;
-      transition: opacity 1.5s ease;
-    }
-
-    @media (hover: none) {
-      .bottom-links.touch-active a {
-        opacity: 0.35;
-      }
-
-      .bottom-links a.touch-active {
-        opacity: 1;
-      }
-
-      .bottom-links.touch-active span {
-        opacity: 0.35;
-      }
-    }
-
-    @media (hover: hover) {
-      .bottom-links:hover a {
-        opacity: 0.35;
-      }
-
-      .bottom-links a:hover {
-        opacity: 1;
-        letter-spacing: 0.2em;
-      }
-
-      .bottom-links:hover span {
-        opacity: 0.35;
-      }
     }
   </style>
 </head>
@@ -182,21 +97,7 @@
     </div>
   </div>
 
-  <div class="bottom-gradient"></div>
-
-  <div class="bottom-links">
-    <a href="https://www.linkedin.com/in/andrewrobbtv" target="_blank" aria-label="Andrew Robb's LinkedIn Profile">LinkedIn</a>
-    <span>—</span>
-    <a href="https://www.instagram.com/andrewrobb" target="_blank" aria-label="Andrew Robb's Instagram Profile">Instagram</a>
-    <span>—</span>
-    <a id="email-link" href="#" aria-label="E-mail Andrew Robb">E-mail</a>
-  </div>
-
   <script>
-    // Cloudflare-safe email assembly
-    const addr = ['hello', 'andrewrobb.tv'].join('@');
-    document.getElementById('email-link').href = 'mailto:' + addr;
-
     const bgVideo = document.querySelector('.video-wrap video');
     const canvas = document.getElementById('logo-canvas');
     const ctx = canvas.getContext('2d');
@@ -226,22 +127,6 @@
           if (framesLoaded === FRAME_COUNT) resolve();
         };
         frames[i] = img;
-      }
-    });
-
-    // Dynamically calculate offset to center logo above links
-    function getLinksOffset() {
-      const links = document.querySelector('.bottom-links');
-      const linksHeight = links.offsetHeight;
-      const bottomMargin = 48;
-      const gap = 24;
-      return linksHeight + bottomMargin + gap;
-    }
-
-    window.addEventListener('resize', () => {
-      const logoWrap = document.querySelector('.logo-wrap');
-      if (logoWrap.classList.contains('slide')) {
-        logoWrap.style.bottom = getLinksOffset() + 'px';
       }
     });
 
@@ -287,14 +172,7 @@
         // 2. After short offset, play and show logo (overlapping with bg fade)
         setTimeout(() => {
           document.querySelector('.logo-wrap').style.opacity = '1';
-          playSequence().then(() => {
-            // 3. After logo animation completes, slide logo up and fade in links
-            const logoWrap = document.querySelector('.logo-wrap');
-            logoWrap.classList.add('slide');
-            logoWrap.style.bottom = getLinksOffset() + 'px';
-            document.querySelector('.bottom-gradient').style.opacity = '1';
-            document.querySelector('.bottom-links').style.opacity = '1';
-          });
+          playSequence();
         }, 750);
 
       }, 1000);
@@ -352,26 +230,9 @@
       const scaleY = velocity > 0 ? stretch : squash;
       document.querySelector('.logo-inner').style.transform =
         `translateY(${-currentY}px) scaleX(${scaleX}) scaleY(${scaleY})`;
-      document.querySelector('.bottom-links').style.transform =
-        `translateX(-50%) translateY(${-currentY * 0.65}px)`;
       requestAnimationFrame(animateBounce);
     }
     animateBounce();
-
-    // Touch tap feedback for mobile
-    document.querySelectorAll('.bottom-links a').forEach(link => {
-      link.addEventListener('touchstart', () => {
-        document.querySelector('.bottom-links').classList.add('touch-active');
-        link.classList.add('touch-active');
-      }, { passive: true });
-
-      link.addEventListener('touchend', () => {
-        setTimeout(() => {
-          document.querySelector('.bottom-links').classList.remove('touch-active');
-          link.classList.remove('touch-active');
-        }, 300);
-      }, { passive: true });
-    });
 
     // Resume background video when user returns to tab
     document.addEventListener('visibilitychange', () => {
